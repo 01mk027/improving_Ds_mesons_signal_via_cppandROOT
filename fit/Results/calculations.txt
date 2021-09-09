@@ -1,0 +1,13 @@
+Signal before AI     = 5479
+Background before AI = 658309
+S/B before AI        = 0.00832284
+Efficiency Before AI = 1
+Purity Before AI     = 0.00825414
+Eff x Pur Before AI  = 0.00825414
+-----------------------
+Signal after AI     = 6253
+Background after AI = 449861
+S/B after AI        = 0.0138998
+Efficiency after AI = 1.14127
+Purity after AI     = 0.0137093
+Eff x Pur after AI  = 0.015646

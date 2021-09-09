@@ -1,0 +1,1 @@
+g++ Phi.cpp -o Phi -lTMVA -lTMVAGui `root-config --cflags --glibs` && ./Phi

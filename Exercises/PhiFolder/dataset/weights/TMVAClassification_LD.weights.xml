@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<MethodSetup Method="LD::LD">
+  <GeneralInfo>
+    <Info name="TMVA Release" value="4.2.1 [262657]"/>
+    <Info name="ROOT Release" value="6.14/06 [396806]"/>
+    <Info name="Creator" value="neverrun"/>
+    <Info name="Date" value="Thu Dec 26 17:56:31 2019"/>
+    <Info name="Host" value="Linux neverrun-SATELLITE-C55-A-1K0 4.15.0-29-generic #31-Ubuntu SMP Tue Jul 17 15:39:52 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux"/>
+    <Info name="Dir" value="/home/neverrun/skeletonanalysis/PhiFolder"/>
+    <Info name="Training events" value="33000"/>
+    <Info name="TrainingTime" value="1.74791813e-02"/>
+    <Info name="AnalysisType" value="Classification"/>
+  </GeneralInfo>
+  <Options>
+    <Option name="V" modified="Yes">False</Option>
+    <Option name="VerbosityLevel" modified="No">Default</Option>
+    <Option name="VarTransform" modified="Yes">None</Option>
+    <Option name="H" modified="Yes">True</Option>
+    <Option name="CreateMVAPdfs" modified="Yes">True</Option>
+    <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
+  </Options>
+  <Variables NVar="3">
+    <Variable VarIndex="0" Expression="diffeps" Label="diffeps" Title="diffeps" Unit="" Internal="diffeps" Type="F" Min="3.84732779e-09" Max="3.11187953e-01"/>
+    <Variable VarIndex="1" Expression="angleKpKm" Label="angleKpKm" Title="angleKpKm" Unit="" Internal="angleKpKm" Type="F" Min="8.45604762e-03" Max="9.08573532e+00"/>
+    <Variable VarIndex="2" Expression="m" Label="m" Title="m" Unit="" Internal="m" Type="F" Min="1.00000453e+00" Max="1.03999937e+00"/>
+  </Variables>
+  <Spectators NSpec="0"/>
+  <Classes NClass="2">
+    <Class Name="Signal" Index="0"/>
+    <Class Name="Background" Index="1"/>
+  </Classes>
+  <Transformations NTransformations="0"/>
+  <MVAPdfs>
+    <PDF Name="LD_PDFSig" MinNSmooth="10" MaxNSmooth="10" InterpolMethod="2" KDE_type="1" KDE_iter="1" KDE_border="1" KDE_finefactor="1.0000000000000000e+00">
+      <Histogram Name="LD_tr_S_original" NBins="50" XMin="7.4777311086654663e-01" XMax="1.0631449222564697e+00" HasEquidistantBins="1">
+        0.00000000e+00 0.00000000e+00 5.28476740e-02 5.28476740e-02 0.00000000e+00 2.11390696e-01 4.22781392e-01 7.39867436e-01 6.34172088e-01 1.32119185e+00 1.42688720e+00 1.47973487e+00 1.90251626e+00 2.85377439e+00 2.37814533e+00 2.00821161e+00 2.64238370e+00 2.85377439e+00 3.54079416e+00 3.11801276e+00 3.17086044e+00 4.28066159e+00 4.43920461e+00 4.65059531e+00 6.02463483e+00 5.70754879e+00 5.54900577e+00 6.65880692e+00 6.71165459e+00 8.19138946e+00 8.03284644e+00 8.77271388e+00 9.67112434e+00 7.55721738e+00 6.39456855e+00 5.54900577e+00 5.65470111e+00 4.96768135e+00 3.91072787e+00 3.54079416e+00 3.01231742e+00 2.37814533e+00 1.74397324e+00 1.32119185e+00 1.00410581e+00 1.16264883e+00 2.64238370e-01 4.22781392e-01 1.05695348e-01 5.28476740e-02 
+      </Histogram>
+    </PDF>
+    <PDF Name="LD_PDFBkg" MinNSmooth="10" MaxNSmooth="10" InterpolMethod="2" KDE_type="1" KDE_iter="1" KDE_border="1" KDE_finefactor="1.0000000000000000e+00">
+      <Histogram Name="LD_tr_B_original" NBins="50" XMin="7.4777311086654663e-01" XMax="1.0631449222564697e+00" HasEquidistantBins="1">
+        4.75644921e-02 2.11397742e-01 3.59376162e-01 6.92327607e-01 1.14683275e+00 1.20496713e+00 1.58548307e+00 1.93957429e+00 2.24610101e+00 2.53677291e+00 2.88557918e+00 3.25024029e+00 3.66246589e+00 4.18039036e+00 4.30194406e+00 4.64546539e+00 5.32722311e+00 5.68659927e+00 5.61261006e+00 6.47934081e+00 6.43706126e+00 6.46877092e+00 6.78058259e+00 6.64317406e+00 6.95498573e+00 7.06068460e+00 7.02368999e+00 7.03425988e+00 6.64317406e+00 6.62203428e+00 6.12524959e+00 5.22152424e+00 4.65603528e+00 3.84743891e+00 2.86972435e+00 2.20910641e+00 1.70703677e+00 1.33180578e+00 1.22610691e+00 1.11512309e+00 8.08596365e-01 5.81343792e-01 3.96370767e-01 2.64247178e-01 1.79688081e-01 1.37408533e-01 1.00413928e-01 4.22795485e-02 4.22795485e-02 1.05698871e-02 
+      </Histogram>
+    </PDF>
+  </MVAPdfs>
+  <Weights NOut="1" NCoeff="4">
+    <Coefficient IndexOut="0" IndexCoeff="0" Value="-8.9504368975578119e-01"/>
+    <Coefficient IndexOut="0" IndexCoeff="1" Value="-4.8678530948421894e-01"/>
+    <Coefficient IndexOut="0" IndexCoeff="2" Value="-4.0433299990451310e-02"/>
+    <Coefficient IndexOut="0" IndexCoeff="3" Value="1.9431984900402313e+00"/>
+  </Weights>
+</MethodSetup>

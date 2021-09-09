@@ -1,0 +1,1 @@
+g++ maintest.cpp -o maintest -lTMVA -lTMVAGui `root-config --cflags --glibs` && ./maintest

@@ -1,0 +1,64 @@
+  TFile *fmc = new TFile("../files/MCwoPd0z0.root");
+  TFile *fda = new TFile("../files/DatawoPd0z0.root");
+  TCanvas *cd0 = new TCanvas("cd0","Impact parameters",1200,800);
+  TH1F *hd0aa = (TH1F*)fmc->Get("D0/D0All/hd0a");
+  TH1F *hd0ad = (TH1F*)fda->Get("D0/D0All/hd0a");
+  TH1F *hd0s = (TH1F*)fmc->Get("D0/D0All/hd0s");
+  hd0aa->SetNameTitle("hd0aa","Transverse impact parameters");
+  cout<<"MC d0= "<<hd0aa->GetEntries()<<"DA d0 = "<<hd0ad->GetEntries()<<"MCs d0 = "<<hd0s->GetEntries()<<endl;
+  double sc = hd0aa->Integral() / hd0ad->Integral();
+  hd0aa->SetAxisRange(-2, 1.99,"X");
+  //hd0s->SetMarkerStyle(26);
+  //hd0aa->SetMarkerStyle(18);
+  //double sc = 1 / hd0aa->Integral(); 
+  
+  hd0aa->SetLineColor(1);
+  hd0aa->Draw();
+  //hd0ad->SetLineColor(2);
+  //double sc2 = 1 / hd0ad->Integral();
+  //hd0ad->Scale(sc2);
+  hd0ad->Scale(sc);
+  hd0ad->SetMarkerStyle(24);
+  hd0ad->Draw("same p");
+  //double sc3 = 1 / hd0s->Integral();
+  hd0s->Scale(sc);
+  hd0s->SetMarkerStyle(26);
+  //hd0s->SetLineColor(3);  
+  hd0s->Draw("same p");
+  //hd0aa->SetMinimum(0);
+  cd0->Update();
+  cd0->SetLogy();
+  TLine *l1 = new TLine(-0.5,0.0,-0.5,5000000.0);
+  l1->SetLineColor(kBlack);
+  l1->SetLineStyle(2);
+  l1->Draw();
+  TText *label1 = new TText();
+  label1 -> SetTextFont(1);
+  label1 -> SetTextColor(1);
+  label1 -> SetTextSize(0.03);
+  label1 -> SetTextAlign(12);
+  label1 -> SetTextAngle(0);
+  label1 -> DrawText(-0.55, 10000000, "Cut");
+  TLine *l2 = new TLine(0.5,0.0,0.5,5000000.0);
+  l2->SetLineColor(kBlack);
+  l2->SetLineStyle(2);
+  l2->Draw();
+  TText *label2 = new TText();
+  label2 -> SetTextFont(1);
+  label2 -> SetTextColor(1);
+  label2 -> SetTextSize(0.03);
+  label2 -> SetTextAlign(12);
+  label2 -> SetTextAngle(0);
+  label2 -> DrawText(0.45, 10000000, "Cut");
+
+  auto legendd0 = new TLegend(0.66384,0.79386,0.898998,0.899123);
+  legendd0->AddEntry(hd0aa,"All tracks from MC","l");
+  legendd0->AddEntry(hd0ad,"All tracks from data","p");
+  legendd0->AddEntry(hd0s,"K+- from Phi","p");
+  legendd0->SetBorderSize(1);
+  legendd0->SetTextSize(0.03);
+  legendd0->Draw();
+  cd0->Print("d0.eps");
+
+
+

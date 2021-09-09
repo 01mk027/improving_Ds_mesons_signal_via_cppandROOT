@@ -1,0 +1,78 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+#include "TROOT.h"
+#include "TH1F.h"
+#include "TRandom3.h"
+#include "TApplication.h"
+#include "TCanvas.h"
+double* Lorentz(double pxtot,double pytot,double pztot,double etot, double px,double py, double pz, double e)
+{
+  double* lorentz = new double[4];
+  double betax = pxtot/etot;
+  double betay = pytot/etot;
+  double betaz = pztot/etot;
+  double beta2 = betax*betax + betay*betay + betaz*betaz;
+  double gamma = 1.0/sqrt(1.0-beta2);
+  double dot = betax*px + betay*py + betaz*pz;
+  double prod = gamma*(gamma*dot/(1.0+gamma)+e);
+  lorentz[0] = px + betax * prod;
+  lorentz[1] = py + betay * prod;
+  lorentz[2] = pz + betaz * prod;
+  lorentz[3] = gamma * (e + dot);
+  return lorentz;
+}
+
+
+int main(int argc,char **argv)
+{
+  TApplication *rootApp = new TApplication("example",&argc,argv);
+  double M,En,Ee,Entrn,Pe[7],Pn[7];
+  double mp=0.9383,mn=0.9396,me=0.511e-3, mntrn=0, pntrn=0.01;
+  const double pi = 3.14159265359;
+  Entrn = sqrt(pntrn*pntrn + mntrn*mntrn);
+
+  M = sqrt(((Entrn+mp) * (Entrn+mp)) - (pntrn*pntrn));
+  En = (M*M + mn*mn - me*me) / (2.0*M);//Energy of neutron (non-transformed)
+  Ee = (M*M - mn*mn + me*me) / (2.0*M);//Energy of Electron (non-transformated)
+  Pn[0] = sqrt(En * En - mn * mn);//Momentum of neutron (non-transformated)
+  Pe[0] = sqrt(Ee * Ee - me * me);//Momentum of electron (non-transformated)
+
+  TRandom *r = new TRandom3; 
+  TCanvas *c1 = new TCanvas("c1","c1",10,10,500,500);
+  TH1F *h1 = new TH1F("h1","Energy of Neutron",100,0,10);
+  TH1F *h2 = new TH1F("h2","Energy of Electron",100,0,10);
+  TH1F *h3 = new TH1F("h3","Angle between two particles",100,0,180);
+
+  for(int i=0;i<10000;i++){
+     Pn[1]=Pn[2]=Pn[3]=Pn[4]=Pn[5]=Pn[6]=0.0;
+     Pe[1]=Pe[2]=Pe[3]=Pe[4]=Pe[5]=Pe[6]=0.0;
+    double pnunit=0,peunit=0,pdotproduct=0,angle=0;
+    double phi = r->Uniform(0,2*pi);
+    double theta = acos(2.0*r->Uniform(0,1)-1);
+    Pn[1] = Pn[0]*cos(phi)*sin(theta);//Pxn*
+    Pn[2] = Pn[0]*sin(phi)*sin(theta);//Pyn*
+    Pn[3] = Pn[0]*cos(theta);//Pzn*
+    Pe[1] = -1.0 * Pn[1];//Pex*
+    Pe[2] = -1.0 * Pn[2];//Pey*
+    Pe[3] = -1.0 * Pn[3];//Pez*
+   double *pnlorentz, *pelorentz;
+   pnlorentz = Lorentz(pntrn,0,0,pntrn+mp,   Pn[1],Pn[2],Pn[3],En);
+   pelorentz = Lorentz(pntrn,0,0,pntrn+mp,   Pe[1],Pe[2],Pe[3],Ee);
+   pdotproduct = pnlorentz[0]*pelorentz[0] + pnlorentz[1]*pelorentz[1] + pnlorentz[2]*pelorentz[2];
+   pnunit = sqrt(pnlorentz[0]*pnlorentz[0] + pnlorentz[1]*pnlorentz[1] + pnlorentz[2]*pnlorentz[2]);
+   peunit = sqrt(pelorentz[0]*pelorentz[0] + pelorentz[1]*pelorentz[1] + pelorentz[2]*pelorentz[2]);
+   angle = acos(pdotproduct/(pnunit*peunit))*180/M_PI;
+   //cout<<pelorentz[3]<<endl;
+   //cout<<angle<<endl;
+   h1->Fill(pnlorentz[3]);//Lorentz transformated neutron energy
+   h2->Fill(pelorentz[3]);//Lorentz transformated electron energy
+   h3->Fill(angle);
+}
+c1->Divide(3,1);
+c1->cd(1);h1->Draw();
+c1->cd(2);h2->Draw();
+c1->cd(3);h3->Draw();
+rootApp->Run();
+}
+
